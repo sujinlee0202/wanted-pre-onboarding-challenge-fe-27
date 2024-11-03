@@ -3,6 +3,8 @@ import { twMerge } from "tailwind-merge";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import { User } from "../../types/user";
+import { fetchSignup } from "../../api/auth";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [formState, setFormState] = useState<User>({
@@ -11,6 +13,8 @@ const Signup = () => {
     password_confirm: "",
   });
   const [isActive, setIsActive] = useState(false);
+
+  const navigate = useNavigate();
 
   const onChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormState((prev) => ({
@@ -37,10 +41,14 @@ const Signup = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    // 비밀번호와 비밀번호 확인이 일치할 경우 회원가입 진행
     if (formState.password === formState.password_confirm) {
-      console.log("signup success");
+      fetchSignup(formState.email, formState.password).then(() =>
+        // 회원가입 성공 시 로그인 페이지로 이동
+        navigate("/login")
+      );
     } else {
-      console.log("signup fail");
+      alert("비밀번호를 확인해주세요.");
     }
   };
 
