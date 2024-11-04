@@ -2,12 +2,12 @@ import { useState } from "react";
 import { twMerge } from "tailwind-merge";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
-import { User } from "../../types/user";
+import { SignupForm } from "../../types/auth";
 import { fetchSignup } from "../../api/auth";
 import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
-  const [formState, setFormState] = useState<User>({
+  const [formState, setFormState] = useState<SignupForm>({
     email: "",
     password: "",
     password_confirm: "",
@@ -26,7 +26,7 @@ const Signup = () => {
   };
 
   // 폼 유효성 검사 함수
-  const validateForm = (formState: User) => {
+  const validateForm = (formState: SignupForm) => {
     const EmailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,}$/;
     const emailValid = EmailRegex.test(formState.email);
     const passwordValid = formState.password.length >= 8;
