@@ -1,12 +1,7 @@
 import { Link } from "react-router-dom";
 import Button from "../../components/Button";
 import { useState } from "react";
-
-const readLoginToken = () => {
-  const loginToken = localStorage.getItem("loginToken");
-
-  return loginToken || "";
-};
+import { readLoginToken } from "../../utils/readLoginToken";
 
 const Home = () => {
   const [loginToken, setLoginToken] = useState(readLoginToken);

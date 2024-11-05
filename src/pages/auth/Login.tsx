@@ -1,10 +1,11 @@
 import { twMerge } from "tailwind-merge";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LoginForm } from "../../types/auth";
 import { fetchLogin } from "../../api/auth";
 import { useNavigate } from "react-router-dom";
+import { readLoginToken } from "../../utils/readLoginToken";
 
 const Login = () => {
   const [formState, setFormState] = useState<LoginForm>({
@@ -14,6 +15,15 @@ const Login = () => {
   const [isActive, setIsActive] = useState(false);
 
   const navigate = useNavigate();
+
+  // loginToken이 존재할 경우 루트 경로로 리다이렉트
+  useEffect(() => {
+    const loginToken = readLoginToken();
+
+    if (loginToken !== "") {
+      navigate("/");
+    }
+  }, []);
 
   const onChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormState((prev) => ({
