@@ -10,8 +10,8 @@ interface InputBoxType {
 
 const InputBox = ({ addTodo }: InputBoxType) => {
   const [text, setText] = useState({
-    todoTitle: "",
-    todoDesc: "",
+    title: "",
+    content: "",
   });
 
   const onChangeInput = (
@@ -29,8 +29,8 @@ const InputBox = ({ addTodo }: InputBoxType) => {
     e.preventDefault();
     addTodo(text);
     setText({
-      todoTitle: "",
-      todoDesc: "",
+      title: "",
+      content: "",
     });
   };
 
@@ -38,15 +38,15 @@ const InputBox = ({ addTodo }: InputBoxType) => {
     <form className='flex flex-col p-4 gap-2' onSubmit={handleSubmit}>
       <Input
         type='text'
-        name='todoTitle'
+        name='title'
         placeholder='할 일의 제목을 입력하세요.'
-        value={text.todoTitle}
+        value={text.title}
         onChange={onChangeInput}
       />
       <TextArea
-        name='todoDesc'
+        name='content'
         className='h-28'
-        value={text.todoDesc}
+        value={text.content}
         placeholder='할 일의 상세정보를 입력하세요'
         onChange={onChangeInput}
       />

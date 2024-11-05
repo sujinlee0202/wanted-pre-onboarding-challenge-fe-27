@@ -1,10 +1,11 @@
 export interface TodoItem {
-  todoTitle: string;
-  todoDesc: string;
+  title: string;
+  content: string;
 }
 
-export interface Todo {
-  id: number;
-  text: TodoItem;
+export interface Todo extends TodoItem {
+  id: string;
   isCompleted: boolean;
+  createdAt: string;
+  updatedAt: string;
 }
