@@ -40,7 +40,12 @@ const Login = () => {
 
     // login api 호출
     fetchLogin(formState.email, formState.password)
-      .then(() => navigate("/")) // 로그인 성공 시 home으로 이동
+      .then((data) => {
+        // 로그인 성공 시 응답받은 토큰을 로컬스토리지에 저장
+        const token = data.token;
+        localStorage.setItem("loginToken", token);
+        navigate("/"); // 로그인 성공 시 home으로 이동
+      })
       .catch(() => {
         // 로그인 실패 시 경고창을 띄우고 login페이지로 리다이렉트
         alert("아이디 또는 비밀번호가 유효하지 않습니다.");
