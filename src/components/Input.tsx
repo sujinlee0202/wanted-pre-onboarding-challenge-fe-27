@@ -8,7 +8,10 @@ interface InputType extends ComponentPropsWithoutRef<"input"> {
 const Input = ({ className, ...rest }: InputType) => {
   return (
     <input
-      className={twMerge("border border-gray-200 py-1 px-2", className)}
+      className={twMerge(
+        "w-full h-11 border border-gray-200 py-1 px-2",
+        className
+      )}
       {...rest}
     />
   );

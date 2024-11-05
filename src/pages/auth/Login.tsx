@@ -76,7 +76,6 @@ const Login = () => {
           <Input
             type='email'
             name='email'
-            className='w-full h-11'
             value={formState.email}
             onChange={onChangeInputs}
           />
@@ -87,7 +86,6 @@ const Login = () => {
           <Input
             type='password'
             name='password'
-            className='w-full h-11'
             value={formState.password}
             onChange={onChangeInputs}
           />
@@ -95,7 +93,7 @@ const Login = () => {
 
         <Button
           className={twMerge(
-            "w-full h-11 bg-blue-400 rounded-xl text-white font-bold my-4",
+            "bg-blue-400 rounded-xl text-white font-bold my-4",
             isActive && "bg-blue-600"
           )}
           disabled={!isActive}
