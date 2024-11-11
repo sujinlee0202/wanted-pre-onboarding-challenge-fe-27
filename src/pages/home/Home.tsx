@@ -20,26 +20,14 @@ const Home = () => {
   }, []);
 
   const addTodo = (text: TodoItem) => {
-    if (!loginToken) {
-      alert("로그인이 필요한 서비스입니다.");
-      return;
-    }
-
-    fetchCreateTodo(text, loginToken)
-      .then((res) => {
-        const newTodo = { ...res.data, isCompleted: false };
-        setTodos((prevTodos) => [...prevTodos, newTodo]);
-      })
-      .catch(() => alert("할일의 제목을 입력해주세요"));
+    fetchCreateTodo(text, loginToken).then((res) => {
+      const newTodo = { ...res.data, isCompleted: false };
+      setTodos((prevTodos) => [...prevTodos, newTodo]);
+    });
   };
 
   const handleTodoDelete = useCallback(
     (id: string) => {
-      if (!loginToken) {
-        alert("로그인이 필요한 서비스입니다.");
-        return;
-      }
-
       fetchDeleteTodos(loginToken, id).then(() => {
         setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
       });
@@ -48,11 +36,6 @@ const Home = () => {
   );
 
   const handleTodoEdit = useCallback(() => {
-    if (!loginToken) {
-      alert("로그인이 필요한 서비스입니다.");
-      return;
-    }
-
     console.log("수정하기");
   }, [loginToken]);
 

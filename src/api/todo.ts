@@ -1,75 +1,55 @@
-import { BASE_URL } from ".";
+import { fetchRequest } from ".";
 import { TodoItem } from "../types/todo";
 
 // todo 추가
-export const fetchCreateTodo = async (todo: TodoItem, loginToken: string) => {
+export const fetchCreateTodo = async (todo: TodoItem, accessToken: string) => {
+  if (!accessToken) {
+    alert("로그인이 필요합니다.");
+    return;
+  }
+
   try {
-    const response = await fetch(`${BASE_URL}/todos`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${loginToken}`,
-      },
-      body: JSON.stringify({
+    const data = await fetchRequest.post(
+      "/todos",
+      {
         title: todo.title,
         content: todo.content,
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error("create todo error");
-    }
-
-    const data = await response.json();
+      },
+      accessToken
+    );
 
     return data;
   } catch (error) {
-    console.error("error", error);
     throw error;
   }
 };
 
 // todo 불러오기
-export const fetchGetTodos = async (loginToken: string) => {
+export const fetchGetTodos = async (accessToken: string) => {
+  if (!accessToken) {
+    alert("로그인이 필요합니다.");
+    return;
+  }
+
   try {
-    const response = await fetch(`${BASE_URL}/todos`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${loginToken}`,
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error("read todo error");
-    }
-
-    const data = await response.json();
+    const data = await fetchRequest.get("/todos", accessToken);
 
     return data;
   } catch (error) {
-    console.error("error", error);
     throw error;
   }
 };
 
 // todo 삭제
-export const fetchDeleteTodos = async (
-  loginToken: string | null,
-  id: string
-) => {
+export const fetchDeleteTodos = async (accessToken: string, id: string) => {
+  if (!accessToken) {
+    alert("로그인이 필요합니다.");
+    return;
+  }
+
   try {
-    const response = await fetch(`${BASE_URL}/todos/${id}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${loginToken}`,
-      },
-    });
+    const data = await fetchRequest.delete(`/todos/${id}`, accessToken);
 
-    if (!response.ok) {
-      throw new Error("delete todo error");
-    }
-
-    const data = await response.json();
     return data;
   } catch (error) {
     console.error("error", error);
@@ -78,20 +58,14 @@ export const fetchDeleteTodos = async (
 };
 
 // id를 통해 todo 불러오기
-export const fetchGetTodoById = async (loginToken: string, id: string) => {
+export const fetchGetTodoById = async (accessToken: string, id: string) => {
+  if (!accessToken) {
+    alert("로그인이 필요합니다.");
+    return;
+  }
+
   try {
-    const response = await fetch(`${BASE_URL}/todos/${id}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${loginToken}`,
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error("read todo error");
-    }
-
-    const data = await response.json();
+    const data = await fetchRequest.get(`/todos/${id}`, accessToken);
 
     return data;
   } catch (error) {
@@ -102,28 +76,24 @@ export const fetchGetTodoById = async (loginToken: string, id: string) => {
 
 // todo 수정하기
 export const fetchUpdateTodo = async (
-  loginToken: string,
+  accessToken: string,
   id: string,
   todo: TodoItem
 ) => {
+  if (!accessToken) {
+    alert("로그인이 필요합니다.");
+    return;
+  }
+
   try {
-    const response = await fetch(`${BASE_URL}/todos/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${loginToken}`,
-      },
-      body: JSON.stringify({
+    const data = await fetchRequest.put(
+      `/todos/${id}`,
+      {
         title: todo.title,
         content: todo.content,
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error("update todo error");
-    }
-
-    const data = await response.json();
+      },
+      accessToken
+    );
 
     return data;
   } catch (error) {
