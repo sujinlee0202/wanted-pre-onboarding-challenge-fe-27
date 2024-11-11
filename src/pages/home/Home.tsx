@@ -47,6 +47,15 @@ const Home = () => {
     [loginToken]
   );
 
+  const handleTodoEdit = useCallback(() => {
+    if (!loginToken) {
+      alert("로그인이 필요한 서비스입니다.");
+      return;
+    }
+
+    console.log("수정하기");
+  }, [loginToken]);
+
   return (
     <main className='item-middle min-h-[100vh] m-auto gap-4'>
       <div className='w-[500px] h-[700px] flex flex-col bg-gray-100 border border-gray-500 rounded-xl'>
@@ -61,7 +70,7 @@ const Home = () => {
             Todo 상세정보
           </h2>
         </div>
-        <Outlet context={{ handleTodoDelete }} />
+        <Outlet context={{ handleTodoDelete, handleTodoEdit }} />
       </div>
     </main>
   );

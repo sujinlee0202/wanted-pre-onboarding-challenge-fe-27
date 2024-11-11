@@ -12,7 +12,7 @@ const Header = () => {
   };
 
   return (
-    <header className='w-full flex items-center justify-between border-b px-4 py-2 '>
+    <header className='w-full flex items-center justify-between border-b px-4 py-2'>
       <div className='h-11 flex items-center font-bold text-xl'>Todo App</div>
       {loginToken ? (
         <Button

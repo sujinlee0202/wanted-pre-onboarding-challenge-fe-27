@@ -99,3 +99,35 @@ export const fetchGetTodoById = async (loginToken: string, id: string) => {
     throw error;
   }
 };
+
+// todo 수정하기
+export const fetchUpdateTodo = async (
+  loginToken: string,
+  id: string,
+  todo: TodoItem
+) => {
+  try {
+    const response = await fetch(`${BASE_URL}/todos/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${loginToken}`,
+      },
+      body: JSON.stringify({
+        title: todo.title,
+        content: todo.content,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("update todo error");
+    }
+
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    console.error("error", error);
+    throw error;
+  }
+};
